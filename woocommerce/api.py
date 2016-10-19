@@ -81,7 +81,7 @@ class API(object):
         if data is not None:
             data = jsonencode(data, ensure_ascii=False).encode('utf-8')
 
-        return request(
+        response = request(
             method=method,
             url=url,
             verify=self.verify_ssl,
@@ -91,6 +91,11 @@ class API(object):
             timeout=self.timeout,
             headers=headers
         )
+
+        if response.text[0] == u'\ufeff':
+            response.encoding = 'utf-8-sig'
+
+        return response
 
     def get(self, endpoint):
         """ Get requests """
