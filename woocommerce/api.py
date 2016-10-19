@@ -17,7 +17,7 @@ from woocommerce.oauth import OAuth
 class API(object):
     """ API Class """
 
-    def __init__(self, url, consumer_key, consumer_secret, **kwargs):
+    def __init__(self, url, consumer_key, consumer_secret, query_string_auth=True, **kwargs):
         self.url = url
         self.consumer_key = consumer_key
         self.consumer_secret = consumer_secret
@@ -26,7 +26,7 @@ class API(object):
         self.is_ssl = self.__is_ssl()
         self.timeout = kwargs.get("timeout", 5)
         self.verify_ssl = kwargs.get("verify_ssl", True)
-        self.query_string_auth = kwargs.get("query_string_auth", False)
+        self.query_string_auth = query_string_auth
 
     def __is_ssl(self):
         """ Check if url use HTTPS """
